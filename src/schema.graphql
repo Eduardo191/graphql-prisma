@@ -36,7 +36,6 @@
   input UpdateUserInput {
     name: String
     email: String
-    age: Int
   }
 
   input CreateCommentInput {
@@ -55,7 +54,6 @@
   input CreateUserInput {
     name: String!
     email: String!
-    age: Int
   }
 
   type User {

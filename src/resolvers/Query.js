@@ -14,8 +14,8 @@ const Query = {
 
       return prisma.query.users(opArgs, info)
     },
-    comments(parent, args, { db }, info) {
-      return db.comments
+    comments(parent, args, { prisma }, info) {
+      return prisma.query.comments(null, info)
     },
     posts(parent, args, { prisma }, info) {
       const opArgs = {}
