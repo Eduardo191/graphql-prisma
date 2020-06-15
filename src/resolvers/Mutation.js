@@ -20,6 +20,28 @@ const Mutation = {
         token: jwt.sign({ userId: user.id }, 'thisisasecret')
       }
     },
+    async login(parent, args, { prisma }, info) {
+      const user = await prisma.query.user({
+        where: {
+          email: args.data.email
+        }
+      })
+
+      if (!user) {
+        throw new Error('Unable to login')
+      }
+
+      const isMatch = await bcrypt.compare(args.data.password, user.password)
+
+      if (!isMatch) {
+        throw new Error('Unabel to login')
+      }
+
+      return {
+        token: jwt.sign({ userId: user.id }, 'thisisasecret'),
+        user
+      }
+    },
     async updateUser(parent, args, { prisma }, info) {
       return prisma.mutation.updateUser({ 
         where: {
