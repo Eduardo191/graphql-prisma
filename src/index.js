@@ -1,4 +1,7 @@
-import { GraphQLServer, PubSub } from 'graphql-yoga'
+import {
+  GraphQLServer,
+  PubSub
+} from 'graphql-yoga'
 import db from './db'
 import Query from './resolvers/Query'
 import Mutation from './resolvers/Mutation'
@@ -20,10 +23,13 @@ const server = new GraphQLServer({
     User,
     Comment
   },
-  context: {
-    db,
-    pubsub,
-    prisma
+  context(request) {
+    return {
+      db,
+      pubsub,
+      prisma,
+      request
+    }
   }
 })
 
@@ -31,6 +37,8 @@ const options = {
   port: 3000
 }
 
-server.start(options, ({ port }) => {
+server.start(options, ({
+  port
+}) => {
   console.log(`The server is up on port ${port}`)
 })

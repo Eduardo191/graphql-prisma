@@ -59,7 +59,6 @@
     title: String!
     body: String!
     published: Boolean!
-    author: ID!
   }
 
   input CreateUserInput {
