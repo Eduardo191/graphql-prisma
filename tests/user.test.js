@@ -107,3 +107,37 @@ test('Should expose published posts', async () => {
   expect(response.data.posts.length).toBe(1)
   expect(response.data.posts[0].published).toBe(true)
 })
+
+test('Should not login with bad crdentials', async () => {
+  const login = gql`
+    mutation {
+      login(
+        data: {
+          email: "maria@gmail.com",
+          password: "ahfouqdoy8"
+        }
+      ) {
+        token
+      }
+    }
+  `
+
+  await expect(client.mutate({ mutation: login })).rejects.toThrow()
+})
+
+test('Should not sign up with short password', async () => {
+  const createUser = gql`
+    mutation {
+      createUser(
+        data: {
+          name: "Pedro",
+          email: "pedro@bol.com.br",
+          password: "p"
+        }
+      ) {
+        token
+      }
+    }
+  `
+  await expect(client.mutate({ mutation: createUser })).rejects.toThrow()
+})
