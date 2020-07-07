@@ -1,5 +1,5 @@
 import 'cross-fetch/polyfill'
-import seedDatabase from './utils/seedDatabase'
+import seedDatabase, { userOne } from './utils/seedDatabase'
 import { gql } from 'apollo-boost'
 import getClient from './utils/getClient'
 
@@ -22,4 +22,23 @@ test('Should expose published posts', async () => {
 
   expect(response.data.posts.length).toBe(1)
   expect(response.data.posts[0].published).toBe(true)
+})
+
+test('Should fetch users posts', async () => {
+  const client  = getClient(userOne.jwt)
+
+  const getPosts = gql`
+    query {
+      myPosts {
+        id
+        title
+        body
+        published
+      }
+    }
+  `
+
+  const { data } = await client.query({ query: getPosts })
+
+  expect(data.myPosts.length).toBe(2)
 })
