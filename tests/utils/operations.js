@@ -1,19 +1,19 @@
 import { gql } from 'apollo-boost'
 
 const createUser = gql`
-    mutation($data:CreateUserInput!) {
-      createUser(
-        data: $data
-      ) {
-        token
-        user {
-          id 
-          name
-          email
-        }
+  mutation($data:CreateUserInput!) {
+    createUser(
+      data: $data
+    ) {
+      token
+      user {
+        id 
+        name
+        email
       }
     }
-  `
+  }
+`
 
 const getUsers = gql`
   query {
@@ -26,14 +26,14 @@ const getUsers = gql`
 `
 
 const login = gql`
-    mutation($data:LoginUserInput!) {
-      login(
-        data: $data
-      ) {
-        token
-      }
+  mutation($data:LoginUserInput!) {
+    login(
+      data: $data
+    ) {
+      token
     }
-  `
+  }
+`
 
 const getProfile = gql`
   query {
@@ -46,15 +46,15 @@ const getProfile = gql`
 `
 
 const getPosts = gql`
-    query {
-      posts {
-        id
-        title
-        body
-        published
-      }
+  query {
+    posts {
+      id
+      title
+      body
+      published
     }
-  `
+  }
+`
 
 const myPosts = gql`
   query {
@@ -68,18 +68,18 @@ const myPosts = gql`
 `
 
 const updatePost = gql`
-    mutation($id:ID!, $data:UpdatePostInput!) {
-      updatePost(
-        id: $id,
-        data: $data
-      ) {
-        id
-        title
-        body
-        published
-      }
+  mutation($id:ID!, $data:UpdatePostInput!) {
+    updatePost(
+      id: $id,
+      data: $data
+    ) {
+      id
+      title
+      body
+      published
     }
-  `
+  }
+`
 
 const createPost = gql`
   mutation($data:CreatePostInput!) {
@@ -95,13 +95,34 @@ const createPost = gql`
 `
 
 const deletePost = gql`
-    mutation($id:ID!) {
-      deletePost(
-        id: $id
-      ) {
-        id
-      }
+  mutation($id:ID!) {
+    deletePost(
+      id: $id
+    ) {
+      id
     }
+  }
 `
 
-export { createUser, getUsers, getProfile, login, getPosts, myPosts, updatePost, createPost, deletePost }
+const deleteComment = gql`
+  mutation($id:ID!) {
+    deleteComment(
+      id: $id
+    ) {
+      id
+    }
+  }
+`
+
+export { 
+  createUser, 
+  getUsers, 
+  getProfile, 
+  login, 
+  getPosts, 
+  myPosts, 
+  updatePost, 
+  createPost, 
+  deletePost, 
+  deleteComment 
+}
